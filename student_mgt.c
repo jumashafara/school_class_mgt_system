@@ -44,6 +44,7 @@ int main(){
             "\t5. To get min mark of a unit\n"
             "\t6. To get max mark of a unit\n"
             "\t7. To print student info to excel\n"
+            "\t0. To exit the system"
             "\nNote:"
             "\tGaps in the excel file are automatically given a value of zero(0).\n"
             "\tStatiscal calculations start from the second row of the excel file.\n"
@@ -56,6 +57,9 @@ int main(){
 
     switch (choice)
     {
+    	
+    case 0:
+    	break;
     case 1:
         enterStudents(student_list);
         goto Menu;
@@ -168,17 +172,26 @@ void printStudents(struct student student_list[MAXIMUM]){
 
 void storeStudentsDetails(struct student student_list[MAXIMUM]){
    
-   int number;
+    int number, size;
     FILE *student_file_pointer;
 
     student_file_pointer = fopen("student_info.csv", "a");
 
+    if(NULL != student_file_pointer){
+        fseek (student_file_pointer, 0, SEEK_END);
+        size = ftell(student_file_pointer);
+        
+        if(0 == size){
+            fprintf(student_file_pointer, "%s, %s, %s, %s, %s, %s, %s, %s\n",
+            "First_Name", "Last_Name", "Student_Number", "Registration_Number", "Course", "Year_of_Study", "Unit 1", "Unit 2");
+        }
+    }
+
     for(number = 0; number < 10; number ++){
 
-        if(student_list[number].year_of_study){
+        if(student_list[number].year_of_study && student_list[number].marks[0] && student_list[number].marks[1]){
             
-            fprintf(student_file_pointer, "%s, %s, %s, %s, %s, %d, %d, %d"
-                , 
+            fprintf(student_file_pointer, "%s, %s, %s, %s, %s, %d, %d, %d\n", 
                 student_list[number].first_name,
                 student_list[number].last_name,
                 student_list[number].student_number,
@@ -272,12 +285,12 @@ int getMarksColumn(int count_of_unit, int list_of_marks[MAXIMUM]){
 }
 
 float getMean(int count_of_unit){
-    int list_of_marks[MAXIMUM], list_size, sum = 0;
+    int list_of_marks[MAXIMUM], list_size, sum = 0, counter;
     float mean;
 
     list_size = getMarksColumn(count_of_unit, list_of_marks);
 
-    for (int counter = 0; counter < list_size; counter++){
+    for (counter = 0; counter < list_size; counter++){
         sum += list_of_marks[counter];
     }
 
@@ -287,13 +300,13 @@ float getMean(int count_of_unit){
 
 int getMax(int count_of_unit){
 
-   int max, list_of_marks[MAXIMUM], list_size;
+   int max, list_of_marks[MAXIMUM], list_size, counter;
 
     list_size = getMarksColumn(count_of_unit, list_of_marks);
 
     max = list_of_marks[0];
     
-   for(int counter = 0; counter < list_size; counter ++){
+   for(counter = 0; counter < list_size; counter ++){
 
        if(list_of_marks[counter] > max){
            max = list_of_marks[counter];
@@ -306,13 +319,13 @@ int getMax(int count_of_unit){
 
 int getMin(int count_of_unit){
 
-    int min, list_of_marks[MAXIMUM], list_size;
+    int min, list_of_marks[MAXIMUM], list_size, counter;
 
     list_size = getMarksColumn(count_of_unit, list_of_marks);
 
     min = list_of_marks[0];
     
-    for(int counter = 0; counter < list_size; counter ++){
+    for(counter = 0; counter < list_size; counter ++){
      
        if(list_of_marks[counter] < min){
            min = list_of_marks[counter];

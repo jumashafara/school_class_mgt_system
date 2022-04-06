@@ -1,4 +1,4 @@
-## What is this?
+# What is this?
 
 This code is a simple school class management system
 

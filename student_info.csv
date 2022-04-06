@@ -1,6 +1,4 @@
-First Name,last Name,Student Number,Registration Number,Course,Year of Study,Unit 1,Unit 2
-Juma, Shafara,1900708915, 19/U/8915/PS, B.STA,3,50,87
-Kirabo, Sharon,1900708966, 19/U/8966/PS, STA,2,65,89
-Okello,Daniel,45897,4589utu,sta,2,32,56
-Agamba,Julius,42370,5fdg,ert,3,88,45
-dsa, dsf, dsf, dsf, dsf,3,65,65
+First_Name, Last_Name, Student_Number, Registration_Number, Course, Year_of_Study, Unit 1, Unit 2
+Okello, Chris, 123, 123U, sta, 3, 56, 78
+Agamba, Drileba, 987, 987U, sta, 3, 56, 98
+Senkasi, Micheal, 765, 765U, sta, 3, 55, 77
